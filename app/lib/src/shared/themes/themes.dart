@@ -9,6 +9,7 @@ ThemeData get darkTheme => ThemeData(
         centerTitle: true,
         backgroundColor: _darkColorScheme.primaryContainer,
       ),
+      segmentedButtonTheme: _segmentedButtonTheme,
     );
 
 ThemeData get lightTheme => ThemeData(
@@ -21,5 +22,16 @@ ThemeData get lightTheme => ThemeData(
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: _lightColorScheme.primary,
         foregroundColor: _lightColorScheme.onPrimary,
+      ),
+      segmentedButtonTheme: _segmentedButtonTheme,
+    );
+
+SegmentedButtonThemeData get _segmentedButtonTheme => SegmentedButtonThemeData(
+      style: ButtonStyle(
+        textStyle: MaterialStateProperty.resolveWith(
+          (states) => const TextStyle(
+            fontSize: 14,
+          ),
+        ),
       ),
     );

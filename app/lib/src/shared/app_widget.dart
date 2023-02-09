@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listinha/main.dart';
+import 'package:listinha/src/home/home_page.dart';
 
 import 'themes/themes.dart';
 
@@ -13,7 +13,8 @@ class AppWidget extends StatelessWidget {
       title: 'Listinha',
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      themeMode: ThemeMode.light,
+      home: const HomePage(),
     );
   }
 }
