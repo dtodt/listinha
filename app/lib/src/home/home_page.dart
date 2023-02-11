@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         actions: const [
           Padding(
-            padding: EdgeInsets.only(right: 8),
+            padding: EdgeInsets.only(right: 12),
             child: UserImageButton(),
           )
         ],
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: SegmentedButton<int>(
                 segments: const [
                   ButtonSegment(value: 0, label: Text('Todos')),
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                   ButtonSegment(value: 2, label: Text('Concluídas')),
                   ButtonSegment(value: 3, label: Text('Desativadas')),
                 ],
-                selected: const {0},
+                selected: const {1},
                 onSelectionChanged: (values) {},
               ),
             ),
@@ -47,7 +47,9 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.edit),
         label: const Text('Nova Lista'),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('./edit');
+        },
       ),
     );
   }

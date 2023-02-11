@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listinha/src/home/home_page.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import 'themes/themes.dart';
 
@@ -8,13 +8,16 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    Modular.setInitialRoute('/home/');
+
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Listinha',
-      theme: lightTheme,
       darkTheme: darkTheme,
+      theme: lightTheme,
       themeMode: ThemeMode.light,
-      home: const HomePage(),
+      title: 'Listinha',
+      routerDelegate: Modular.routerDelegate,
+      routeInformationParser: Modular.routeInformationParser,
     );
   }
 }

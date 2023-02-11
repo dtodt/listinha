@@ -10,6 +10,7 @@ ThemeData get darkTheme => ThemeData(
         backgroundColor: _darkColorScheme.primaryContainer,
       ),
       segmentedButtonTheme: _segmentedButtonTheme,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
     );
 
 ThemeData get lightTheme => ThemeData(
@@ -24,14 +25,17 @@ ThemeData get lightTheme => ThemeData(
         foregroundColor: _lightColorScheme.onPrimary,
       ),
       segmentedButtonTheme: _segmentedButtonTheme,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
     );
 
 SegmentedButtonThemeData get _segmentedButtonTheme => SegmentedButtonThemeData(
       style: ButtonStyle(
         textStyle: MaterialStateProperty.resolveWith(
-          (states) => const TextStyle(
-            fontSize: 14,
-          ),
+          (states) {
+            return const TextStyle(
+              fontSize: 14,
+            );
+          },
         ),
       ),
     );
