@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:listinha/src/configuration/services/configuration_service.dart';
+import 'package:listinha/src/shared/services/realm/models/configuration_model.dart';
 
 class AppStore {
+  final ConfigurationService _configurationService;
+
   final _syncDate = ValueNotifier<DateTime?>(null);
   final _themeMode = ValueNotifier<ThemeMode>(ThemeMode.system);
 
-  AppStore();
+  AppStore(this._configurationService) {
+    init();
+  }
 
   void init() {
-    // TODO: iniciar os dados na base local
+    final model = _configurationService.get();
+    _syncDate.value = model.syncDate;
+    _themeMode.value = _getThemeModeByName(model.themeModeName);
   }
+
   void save() {
-    // TODO: salvar os dados na base local
+    _configurationService.save(themeMode.value.name, syncDate.value);
+  }
+
+  void clearAppData() {
+    _configurationService.deleteAll();
   }
 
   ValueNotifier<DateTime?> get syncDate => _syncDate;
@@ -26,5 +39,9 @@ class AppStore {
     if (mode == null) return;
     _themeMode.value = mode;
     save();
+  }
+
+  ThemeMode _getThemeModeByName(String name) {
+    return ThemeMode.values.firstWhere((mode) => mode.name == name);
   }
 }
