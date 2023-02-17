@@ -31,15 +31,8 @@ const colorScheme = ColorScheme(
 );
 
 void main() {
-  final board = TaskBoard(
-    Uuid.v4(),
-    'title',
-  );
-  final disabledBoard = TaskBoard(
-    Uuid.v4(),
-    'title',
-    enabled: false,
-  );
+  final board = TaskBoard(Uuid.v4(), 'title');
+  final disabledBoard = TaskBoard(Uuid.v4(), 'title', enabled: false);
   final tasks = [
     Task(Uuid.v4(), '', completed: true),
     Task(Uuid.v4(), '', completed: true),
@@ -98,7 +91,7 @@ void main() {
     expect(progress, equals(0.5));
 
     final emptyProgress = card.getProgress([]);
-    expect(emptyProgress, equals(0.0));
+    expect(emptyProgress, isZero);
   });
 
   testWidgets('getProgressText', (tester) async {

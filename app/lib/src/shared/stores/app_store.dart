@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:listinha/src/configuration/services/configuration_service.dart';
-import 'package:listinha/src/shared/services/realm/models/configuration_model.dart';
 
 class AppStore {
   final ConfigurationService _configurationService;
