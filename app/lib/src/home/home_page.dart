@@ -14,6 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int selectedOption = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +35,7 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: _cardItemBuilder,
               itemCount: 5,
               padding: const EdgeInsets.symmetric(
-                horizontal: 40,
+                horizontal: 32,
                 vertical: 100,
               ),
               separatorBuilder: _cardSeparatorBuilder,
@@ -42,16 +44,31 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.topCenter,
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                 child: SegmentedButton<int>(
+                  showSelectedIcon: false,
                   segments: const [
-                    ButtonSegment(value: 0, label: Text('Todos')),
-                    ButtonSegment(value: 1, label: Text('Pendentes')),
-                    ButtonSegment(value: 2, label: Text('Concluídas')),
-                    ButtonSegment(value: 3, label: Text('Desativadas')),
+                    ButtonSegment(
+                      value: 0,
+                      label: FittedBox(child: Text('Todos')),
+                    ),
+                    ButtonSegment(
+                      value: 1,
+                      label: FittedBox(child: Text('Pendentes')),
+                    ),
+                    ButtonSegment(
+                      value: 2,
+                      label: FittedBox(child: Text('Concluídas')),
+                    ),
+                    ButtonSegment(
+                      value: 3,
+                      label: FittedBox(child: Text('Desativadas')),
+                    ),
                   ],
-                  selected: const {1},
-                  onSelectionChanged: (values) {},
+                  selected: {selectedOption},
+                  onSelectionChanged: (values) => setState(() {
+                    selectedOption = values.first;
+                  }),
                 ),
               ),
             ),
