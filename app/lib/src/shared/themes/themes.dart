@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-part 'color_schemes.g.dart';
+part 'themes.g.dart';
 
 ThemeData get darkTheme => ThemeData(
       colorScheme: _darkColorScheme,
