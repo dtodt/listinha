@@ -40,7 +40,7 @@ void main() {
     Task(Uuid.v4(), ''),
   ];
 
-  testWidgets('getBackgroundColor', (tester) async {
+  test('getBackgroundColor', () {
     final card = TaskBoardCard(board: board);
 
     final completed = card.getBackgroundColor(
@@ -62,7 +62,7 @@ void main() {
     expect(pending, equals(primaryContainer));
   });
 
-  testWidgets('getColor', (tester) async {
+  test('getColor', () {
     final card = TaskBoardCard(board: board);
 
     final completed = card.getColor(
@@ -84,7 +84,7 @@ void main() {
     expect(pending, equals(primary));
   });
 
-  testWidgets('getProgress', (tester) async {
+  test('getProgress', () {
     final card = TaskBoardCard(board: board);
 
     final progress = card.getProgress(tasks);
@@ -94,7 +94,7 @@ void main() {
     expect(emptyProgress, isZero);
   });
 
-  testWidgets('getProgressText', (tester) async {
+  test('getProgressText', () {
     final card = TaskBoardCard(board: board);
 
     final progress = card.getProgressText(tasks);
@@ -104,7 +104,7 @@ void main() {
     expect(emptyProgress, equals('0/0'));
   });
 
-  testWidgets('getStatus', (tester) async {
+  test('getStatus', () {
     final card = TaskBoardCard(board: board);
 
     final completed = card.getStatus(board, 1);
