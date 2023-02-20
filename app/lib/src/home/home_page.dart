@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:listinha/src/home/widgets/task_board_card.dart';
-import 'package:listinha/src/shared/services/realm/models/task_model.dart';
+import 'package:listinha/src/shared/services/realm/models/task_board_model.dart';
 import 'package:listinha/src/shared/widgets/user_image_button.dart';
 import 'package:realm/realm.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listinha/src/shared/services/realm/models/task_model.dart';
+import 'package:listinha/src/shared/services/realm/models/task_board_model.dart';
 
 const opacity = 0.5;
 
