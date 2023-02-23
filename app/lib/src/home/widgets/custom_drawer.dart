@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-
 import 'package:listinha/src/shared/stores/app_store.dart';
+import 'package:rx_notifier/rx_notifier.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({
-    super.key,
-  });
+  const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final appStore = context.watch<AppStore>(
-      (store) => store.syncDate,
-    );
+    final appStore = context.read<AppStore>();
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
-    final syncDate = appStore.syncDate.value;
+    final syncDate = context.select(() => appStore.syncDate);
     var syncDateText = 'Nunca';
     if (syncDate != null) {
       final formatter = DateFormat('dd/MM/yyyy às hh:mm');
@@ -68,3 +64,52 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 }
+
+
+
+
+/*
+
+  final _syncDate = ValueNotifier<DateTime?>(null);
+  final _themeMode = ValueNotifier<ThemeMode>(ThemeMode.system);
+
+  AppStore(this._configurationService) {
+    init();
+  }
+
+  void init() {
+    final model = _configurationService.get();
+    _syncDate.value = model.syncDate;
+    _themeMode.value = _getThemeModeByName(model.themeModeName);
+  }
+
+  void save() {
+    _configurationService.save(themeMode.value.name, syncDate.value);
+  }
+
+  void clearAppData() {
+    _configurationService.deleteAll();
+  }
+
+  ValueNotifier<DateTime?> get syncDate => _syncDate;
+
+  void setSyncDate(DateTime date) {
+    _syncDate.value = date;
+    save();
+  }
+
+  ValueNotifier<ThemeMode> get themeMode => _themeMode;
+
+  void setThemeMode(ThemeMode? mode) {
+    if (mode == null) return;
+    _themeMode.value = mode;
+    save();
+  }
+
+  ThemeMode _getThemeModeByName(String name) {
+    return ThemeMode.values.firstWhere((mode) => mode.name == name);
+  }
+
+
+*/
+

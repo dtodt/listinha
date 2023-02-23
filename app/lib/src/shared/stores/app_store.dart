@@ -1,46 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:listinha/src/configuration/services/configuration_service.dart';
+import 'package:rx_notifier/rx_notifier.dart';
 
 class AppStore {
-  final ConfigurationService _configurationService;
+  final _syncDate = RxNotifier<DateTime?>(null);
+  final _themeMode = RxNotifier<ThemeMode>(ThemeMode.system);
 
-  final _syncDate = ValueNotifier<DateTime?>(null);
-  final _themeMode = ValueNotifier<ThemeMode>(ThemeMode.system);
+  DateTime? get syncDate => _syncDate.value;
+  set syncDate(DateTime? date) => _syncDate.value = date;
 
-  AppStore(this._configurationService) {
-    init();
-  }
-
-  void init() {
-    final model = _configurationService.get();
-    _syncDate.value = model.syncDate;
-    _themeMode.value = _getThemeModeByName(model.themeModeName);
-  }
-
-  void save() {
-    _configurationService.save(themeMode.value.name, syncDate.value);
-  }
-
-  void clearAppData() {
-    _configurationService.deleteAll();
-  }
-
-  ValueNotifier<DateTime?> get syncDate => _syncDate;
-
-  void setSyncDate(DateTime date) {
-    _syncDate.value = date;
-    save();
-  }
-
-  ValueNotifier<ThemeMode> get themeMode => _themeMode;
-
-  void setThemeMode(ThemeMode? mode) {
-    if (mode == null) return;
-    _themeMode.value = mode;
-    save();
-  }
-
-  ThemeMode _getThemeModeByName(String name) {
-    return ThemeMode.values.firstWhere((mode) => mode.name == name);
-  }
+  ThemeMode get themeMode => _themeMode.value;
+  set themeMode(ThemeMode mode) => _themeMode.value = mode;
 }

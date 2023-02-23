@@ -11,13 +11,18 @@ class AppModule extends Module {
   @override
   List<Bind<Object>> get binds => [
         Bind.instance<Realm>(Realm(config)),
-        AutoBind.factory<ConfigurationService>(RealmConfigurationService.new),
+        AutoBind.singleton<ConfigurationService>(RealmConfigurationService.new),
         AutoBind.singleton<AppStore>(AppStore.new),
       ];
 
   @override
   List<ModularRoute> get routes => [
         ModuleRoute('/home', module: HomeModule()),
-        ChildRoute('/config', child: (_, __) => const ConfigurationPage()),
+        ChildRoute(
+          '/config',
+          child: (_, __) => ConfigurationPage(
+            appStore: Modular.get<AppStore>(),
+          ),
+        ),
       ];
 }

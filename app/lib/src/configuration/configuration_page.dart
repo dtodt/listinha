@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-
 import 'package:listinha/src/shared/stores/app_store.dart';
+import 'package:rx_notifier/rx_notifier.dart';
 
 class ConfigurationPage extends StatefulWidget {
-  const ConfigurationPage({super.key});
+  final AppStore appStore;
+
+  const ConfigurationPage({super.key, required this.appStore});
 
   @override
   State<ConfigurationPage> createState() => _ConfigurationPageState();
@@ -13,9 +14,7 @@ class ConfigurationPage extends StatefulWidget {
 class _ConfigurationPageState extends State<ConfigurationPage> {
   @override
   Widget build(BuildContext context) {
-    final appStore = context.watch<AppStore>(
-      (store) => store.themeMode,
-    );
+    final themeMode = context.select(() => widget.appStore.themeMode);
 
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
@@ -48,31 +47,31 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
             ),
             const SizedBox(height: 20),
             RadioListTile<ThemeMode>(
-              groupValue: appStore.themeMode.value,
+              groupValue: themeMode,
               value: ThemeMode.light,
               title: Text(
                 'Claro',
                 style: option,
               ),
-              onChanged: appStore.setThemeMode,
+              onChanged: _setThemeMode,
             ),
             RadioListTile<ThemeMode>(
-              groupValue: appStore.themeMode.value,
+              groupValue: themeMode,
               value: ThemeMode.dark,
               title: Text(
                 'Escuro',
                 style: option,
               ),
-              onChanged: appStore.setThemeMode,
+              onChanged: _setThemeMode,
             ),
             RadioListTile<ThemeMode>(
-              groupValue: appStore.themeMode.value,
+              groupValue: themeMode,
               value: ThemeMode.system,
               title: Text(
                 'Sistema',
                 style: option,
               ),
-              onChanged: appStore.setThemeMode,
+              onChanged: _setThemeMode,
             ),
             const SizedBox(height: 20),
             Text(
@@ -81,12 +80,17 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
             ),
             const SizedBox(height: 20),
             OutlinedButton(
-              onPressed: appStore.clearAppData,
+              onPressed: () {},
               child: const Text('Apagar cache e reiniciar o app'),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _setThemeMode(ThemeMode? mode) {
+    if (mode == null) return;
+    widget.appStore.themeMode = mode;
   }
 }
